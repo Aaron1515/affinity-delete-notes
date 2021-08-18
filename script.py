@@ -2,19 +2,19 @@ import requests
 import csv
 
 from api_keys import *
-from orgs import *
+from notes import *
 
 
-total_count = len(org_ids)
+total_count = len(note_ids)
 current_count = 0
 corrected_count = 0
 
 log_file = open("log.csv", "w")
-log_file.write("Organization ID, Status code, Note")
+log_file.write("Note ID, Status Code, Note")
 log_file.write("\n")
 
-for each in org_ids:
-  response = requests.delete("https://api.affinity.co/organizations/" + str(each), auth=('', api_key))
+for each in note_ids:
+  response = requests.delete("https://api.affinity.co/notes/" + str(each), auth=('', api_key))
   current_count = current_count + 1
 
   if response.status_code == 200:
@@ -37,5 +37,5 @@ for each in org_ids:
   	log_file.write("\n")
 
 log_file.write("\n")
-log_file.write("Number of successful organizations removed: " + str(corrected_count))
+log_file.write("Number of successful notes removed: " + str(corrected_count))
 log_file.close()
